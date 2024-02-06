@@ -1,0 +1,1 @@
+//  "type": "module", -> this function for enable ecmascript for import and export keyword

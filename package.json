@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "moongose": "^1.0.0",
+    "notistack": "^3.0.1",
+    "react-router-dom": "^6.22.0"
+  }
+}
