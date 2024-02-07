@@ -30,7 +30,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="p-4">
+      <div className="bg-color-red-100">
         <div className="flex justify-center item-center gap-x-4">
           <button
             className="bg-sky-300 hover:bg-sky-600 px-4 py-1 rounded-lg"
