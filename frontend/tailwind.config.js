@@ -7,8 +7,16 @@ export default {
   theme: {
     extend: {
       backgroundColor: {
-        'primary': '#7F27FF',
-        'secondary': '#9F70FD'
+        'primary': '#364F6B',
+        'secondary': '#3FC1C9',
+        'tertiary': '#F2AFEF',
+        'backgroundputih': '#F5F5F5'
+      },
+      textColor: {
+        'primary': '#364F6B',
+        'secondary': '#3FC1C9',
+        'tertiary': '#F2AFEF',
+        'backgroundputih': '#F5F5F5'
       }
 
     },
