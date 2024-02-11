@@ -2,7 +2,10 @@ import express from 'express';
 import {PORT, mongoDBURL} from './config.js';
 import mongoose from 'mongoose';
 import {Book} from './models/bookModels.js';
-import booksRoute from './routes/booksRoute.js'
+import {User} from './models/userModels.js';
+import booksRoute from './routes/booksRoute.js';
+import usersRoute from './routes/usersRoute.js';
+
 import cors from 'cors';
 
 // mongoose.set('strictQuery', false);
@@ -32,6 +35,14 @@ app.get('/', (request, response) => {
 
 // prefix for booksRoute
 app.use('/books', booksRoute);
+
+// prefix for userRoute
+app.use('/users', usersRoute );
+
+
+
+
+
 
 //3. add MongoDB and mongoose to node js
 mongoose.set("strictQuery", false);

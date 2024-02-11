@@ -19,7 +19,7 @@ const LandingPage = () => {
             </h2>
             <p className="max-w-md text-sm md:text-base text-zinc-500 text-primary">Insightful is an AI Powered Sales optimization tool that provides data-drives insight to bosst sales performance</p>
             <div className="w-full flex items-center justify-center md:justify-start gap-4">
-              <button className="w-48 h-12 text-sm sm:text-base rounded bg-primary text-backgroundputih hover:bg-primary hover:text-white transition-colors">
+              <button className="w-48 h-12 text-sm sm:text-base rounded bg-primary text-custom-white hover:bg-primary hover:text-white transition-colors">
                 Button
               </button>
               <button className="w-48 h-12 text-sm sm:text-base rounded hover:bg-secondary hover:text-primary hover:bg-secondary transition-colors">

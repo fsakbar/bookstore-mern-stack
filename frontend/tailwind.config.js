@@ -10,13 +10,16 @@ export default {
         'primary': '#364F6B',
         'secondary': '#3FC1C9',
         'tertiary': '#F2AFEF',
-        'backgroundputih': '#F5F5F5'
+        'custom-white': '#F5F5F5'
       },
       textColor: {
         'primary': '#364F6B',
         'secondary': '#3FC1C9',
         'tertiary': '#F2AFEF',
-        'backgroundputih': '#F5F5F5'
+        'custom-white': '#F5F5F5'
+      },
+      borderColor: {
+        'primary': '#364F6B'
       }
 
     },
