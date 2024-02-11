@@ -1,6 +1,6 @@
 import express from 'express'
 import {User} from '../models/userModels.js';
-// import { createSecretToken } from '../util/SecretToken.js'
+import createSecretToken from '../util/SecretToken.js';
 import bcrypt from 'bcryptjs'
 
 
@@ -30,15 +30,16 @@ router.post('/signup', async (request, response) => {
         const existingUser = await User.findOne({ email });
 
         if (existingUser) {
-            response.json("Email already exists");
+            return response.json("Email already exists");
         } 
-        
+
         const user = await User.create({ name, email, password });
-        // const token = createSecretToken(user._id)
-        // response.cookie("token", token, {
-        //     withCredentials: true,
-        //     httpOnly: false,
-        //   });
+        const token = createSecretToken(user._id)
+        response.cookie("token", token, {
+            withCredentials: true,
+            httpOnly: false,
+            secure: true
+          });
 
         response.status(201).json({message: "User signed in successfully", success: true, user});
         

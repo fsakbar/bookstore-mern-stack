@@ -5,6 +5,8 @@ import {Book} from './models/bookModels.js';
 import {User} from './models/userModels.js';
 import booksRoute from './routes/booksRoute.js';
 import usersRoute from './routes/usersRoute.js';
+import cookieParser from 'cookie-parser';
+
 
 import cors from 'cors';
 
@@ -33,6 +35,10 @@ app.get('/', (request, response) => {
     return response.status(234).send('Success! <h1>Welcome to MERN Stack Tutorial</h1>')
 });
 
+
+
+
+
 // prefix for booksRoute
 app.use('/books', booksRoute);
 
@@ -47,7 +53,7 @@ app.use('/users', usersRoute );
 //3. add MongoDB and mongoose to node js
 mongoose.set("strictQuery", false);
 mongoose
-    .connect(mongoDBURL)
+    .connect(mongoDBURL, {useNewUrlParser: true, useUnifiedTopology: true,})
     .then(() => {
         console.log('App connected to database');
         //1. make node.js server
