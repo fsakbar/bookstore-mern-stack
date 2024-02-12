@@ -56,36 +56,53 @@ router.post('/signup', async (request, response) => {
 
 // Ini Masih Salah
 router.post("/login", async (request, response)=>{
-    const {email,password} = request.body;
+   
     try {
-        const user = await User.findOne({email:email})
-        const passworddMatch = bcrypt.compare(password, user.password);
-        if (user) {
-            if (passworddMatch) {
-                
-                const exp = Date.now() + 1000 * 60 * 60 * 24 * 30;
-                const token = jwt.sign({sub: user._id, exp: exp}, process.env.SECRET)
-
-                response.cookie("Authorization", token, {
-                    expires: new Date (exp),
-                    httpOnly: true,
-                    sameSite: 'lax',
-                    // secure: process.env.NODE_ENV === "production",
-                })
-
-                response.json("Success").status(201)
-            } else {
-                response.json("Wrong Password").status(402)
-             
-            }
-          } else {
-            response.json("not registered").status(404)
+        const {email, password} = request.body;
+        const user = await User.findOne({email})
+        
+        if (!user) {
+            return response.status(404).json("User not registered").status(404);
         }
+
+        // const passwordMatch = bcrypt.compareSync(password, user.password).then(function(result) {
+        //     result == true
+        // });
+        const passwordMatch = bcrypt.compareSync(password, user.password);
+
+        console.log(password)
+        console.log(user.password)
+        console.log(passwordMatch)
+
+    
+        if (passwordMatch) {
+            const exp = Date.now() + 1000 * 60 * 60 * 24 * 30;
+            const token = jwt.sign({sub: user._id, exp: exp}, process.env.SECRET)
+
+            response.cookie("Authorization", token, {
+                expires: new Date (exp),
+                httpOnly: true,
+                sameSite: 'lax',
+                // secure: process.env.NODE_ENV === "production",
+            })
+            response.json("Success").status(201)
+
+            } 
+        else {
+            response.json("Wrong Password").status(402)
+                
+        }
+
+        
     } catch (error) {
-        console.log(error)
+        // console.log(error)
+        // console.log("error undifined")
         response.status(400).send({message: error.message})
     }
 });
+
+
+
 
 
 router.get('/', async (request, response) => {

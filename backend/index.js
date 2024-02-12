@@ -73,4 +73,4 @@ app.use('/users', usersRoute );
 
 
 // prefix for booksRoute
-app.use('/books', requireAuth, booksRoute);
+app.use('/books',  booksRoute);
