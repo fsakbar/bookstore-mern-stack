@@ -20,7 +20,7 @@ const Signup = () => {
     }
     
     axios
-      .post('http://localhost:5555/users/signup', data)
+      .post('http://localhost:3000/users/signup', data)
       .then((result) => {
         console.log(result)
         if(result.data == "Email already exists"){

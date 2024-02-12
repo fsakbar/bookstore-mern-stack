@@ -22,7 +22,7 @@ const Login = () => {
     }
 
     axios
-      .post('http://localhost:5555/users/login', data)
+      .post('http://localhost:3000/users/login', data)
       .then((result) => {
           console.log(result)
           if(result.data === "Success"){

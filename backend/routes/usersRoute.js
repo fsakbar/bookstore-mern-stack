@@ -1,7 +1,13 @@
 import express from 'express'
 import {User} from '../models/userModels.js';
+
 import createSecretToken from '../util/SecretToken.js';
+
+import 'dotenv/config'
+
 import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken';
+
 
 
 
@@ -32,22 +38,15 @@ router.post('/signup', async (request, response) => {
         if (existingUser) {
             return response.json("Email already exists");
         } 
+        const hashedPassword = bcrypt.hashSync(password, 8);
 
-        const user = await User.create({ name, email, password });
-        const token = createSecretToken(user._id)
-        response.cookie("token", token, {
-            withCredentials: true,
-            httpOnly: false,
-            secure: true
-          });
-
+        const user = await User.create({ name, email, password:hashedPassword });
         response.status(201).json({message: "User signed in successfully", success: true, user});
-        
     }
     
     catch (error) {
         console.log(error)
-        response.status(500)
+        response.status(400)
       
     }
 });
@@ -60,8 +59,20 @@ router.post("/login", async (request, response)=>{
     const {email,password} = request.body;
     try {
         const user = await User.findOne({email:email})
+        const passworddMatch = bcrypt.compare(password, user.password);
         if (user) {
-            if (password === user.password) {
+            if (passworddMatch) {
+                
+                const exp = Date.now() + 1000 * 60 * 60 * 24 * 30;
+                const token = jwt.sign({sub: user._id, exp: exp}, process.env.SECRET)
+
+                response.cookie("Authorization", token, {
+                    expires: new Date (exp),
+                    httpOnly: true,
+                    sameSite: 'lax',
+                    // secure: process.env.NODE_ENV === "production",
+                })
+
                 response.json("Success").status(201)
             } else {
                 response.json("Wrong Password").status(402)
@@ -72,7 +83,7 @@ router.post("/login", async (request, response)=>{
         }
     } catch (error) {
         console.log(error)
-        response.status(500).send({message: error.message})
+        response.status(400).send({message: error.message})
     }
 });
 
